@@ -32,7 +32,7 @@ def home(request):
         placeholder="Ведите текст">
         <button>Готово</button>
         <p>Первый проект</p>
-        <abbr title="This is DJANGO project">For beginners</abbr>
+        <abbr title="Github Jumakadyr"><a href="https://github.com/jumakadyr">This is my github</a></abbr>
         </body>
         </html>''')
 
