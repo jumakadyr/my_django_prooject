@@ -29,7 +29,7 @@ def home(request):
         <body>
         <h1><em>Первый урок на HTML</em></h1>
         <input type="text"
-        placeholder="Ведите текст">
+        placeholder="Введите текст">
         <button>Готово</button>
         <p>Первый проект</p>
         <abbr title="Github Jumakadyr"><a href="https://github.com/jumakadyr">This is my github</a></abbr>
