@@ -7,5 +7,9 @@ urlpatterns = [
     path('check/', views.check_number),
     path('filter_words/', views.filter_words),
     path('palindrome/', views.palindrome),
-
+    path('age_old/', views.age_old),
+    path('multiplication/', views.multiplication),
+    path('max/', views.find_maximum),
+    path('temperature/', views.convert_temperature),
+    path('password/', views.generate_password),
 ]
