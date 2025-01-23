@@ -1,37 +1,62 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import JsonResponse
+from django.template.backends.django import reraise
 
-def index(request):
-    return HttpResponse('''
-        <!DOCTYPE html>
-        <html>
-        <head>
-        <meta charset = utf-8>
-        <title>Home</title>
-        </head>                      
-        <body>
-        <h1><em>Первый урок на HTML</em></h1>
-        <input type="text"
-        placeholder="Ведите текст">
-        <button>Готово</button>
-        <p>Первый проект</p>
-        <abbr title="Github Jumakadyr"><a href="https://github.com/jumakadyr">This is my github</a></abbr>
-        </body>
-        </html>''')
+def hello(request):
+    name = request.GET.get('name','Гость')
+    greeting = f"<p>Hello, {name}! Welcome to our site.</p>"
 
-def factorial(request):
-    number = int(request.GET.get('number', 10))
-    result = 1
-    for i in range(1,number+1):
-        result *= i
-    return HttpResponse(f"<h1>result: {result}</h1>")
+    return HttpResponse(greeting)
 
 
-def info(request):
-    print(request.GET)
-    return HttpResponse(
-        f'<h1>Info</h1><br>'
-        f'<p>{request.build_absolute_uri()}</p>'
-        f'<p>{request.method}</p>'
-        f'<p>{request.GET['name']}<br>Age:{request.GET['age']}</p>'
-    )
+def sum(request):
+    try:
+        a = float(request.GET['a'])
+        b = float(request.GET['b'])
+    except (KeyError, ValueError):
+        return JsonResponse({'error': 'Both parameters a and b must be valid numbers and are required.'}, status=400)
+
+    result = a + b
+
+    return JsonResponse({'a': a, 'b': b, 'sum': result})
+
+
+def check_number(request):
+    number = request.GET.get('number')
+
+    if number is not None and number.isdigit():
+        number = int(number)
+
+        if number % 2 == 0:
+            return HttpResponse(f"{number}--> even numbers")
+        else:
+            return HttpResponse(f"{number}--> odd numbers")
+
+    else:
+        return HttpResponse("Please provide a valid number via the 'number' parameter.")
+
+
+
+
+def filter_words(request):
+    text = request.GET.get('text', '')
+    n = int(request.GET.get('n', 0))
+
+    words = text.split()
+
+    filtered_words = [word for word in words if len(word) > n]
+
+    return JsonResponse(filtered_words, safe=False)
+
+
+def palindrome(request):
+    word = request.GET.get('word', '')
+
+    if word == word[::-1]:
+        return HttpResponse(f'Word {word} is a palindrome')
+    else:
+        return HttpResponse(f'Word {word} is not a palindrome')
+
+def age_old(request):
+    your_old = request.GET.get('your_old', '')
