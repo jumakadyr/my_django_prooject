@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Меню задач</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            height: 100vh;
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            padding: 10px;
+            border-bottom: 1px solid #555;
+        }
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+        }
+        .sidebar ul li a:hover {
+            background-color: #555;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .content {
+                margin-left: 0;
+            }
+            .sidebar ul li {
+                text-align: center;
+            }
+            .sidebar ul li a {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>Список задач</h2>
+        <ul>
+            <li><a href="#" onclick="loadTaskContent('task1')">Задача 1</a></li>
+            <li><a href="#" onclick="loadTaskContent('task2')">Задача 2</a></li>
+            <li><a href="#" onclick="loadTaskContent('task3')">Задача 3</a></li>
+            <li><a href="#" onclick="loadTaskContent('task4')">Задача 4</a></li>
+            <li><a href="#" onclick="loadTaskContent('task5')">Задача 5</a></li>
+            <li><a href="http://127.0.0.1:8000/blog/task-6/" onclick="loadTaskContent('task6')">Задача 6</a></li>
+            <li><a href="http://127.0.0.1:8000/blog/task-7/" onclick="loadTaskContent('task7')">Задача 7</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <h2>Решение задач</h2>
+
+        <div id="task-content">
+
+        </div>
+    </div>
+
+    <script>
+        function loadTaskContent(taskId) {
+            let taskContent = '';
+
+
+            if (taskId === 'task1') {
+                task_1 = '<p>Задача 1: <h3 style="color:green"> {temp_conversion}</h3></p>';
+            } else if (taskId === 'task2') {
+                taskContent = '<p>Задача 2: loadTaskContent('task1')</p>';
+            } else if (taskId === 'task3') {
+                taskContent = '<p>Задача 3: Бул жерде Задача 3 үчүн жообуңуз болот.</p>';
+            } else if (taskId === 'task4') {
+                taskContent = '<p>Задача 4: Бул жерде Задача 4 үчүн жообуңуз болот.</p>';
+            } else if (taskId === 'task5') {
+                taskContent = '<p>Задача 5: .</p>';
+            } else if (taskId === 'task6') {
+                task_6 = '<p>Задача 6:</p>';
+            } else if (taskId === 'task7') {
+                task_7 = '<p> Задача 7:  "Задача 7" </p>';
+            }
+
+            document.getElementById('task-content').innerHTML = taskContent;
+        }
+    </script>
+
+</body>
+</html>

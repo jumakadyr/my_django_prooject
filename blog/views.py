@@ -1,67 +1,74 @@
+from django.db.models.expressions import result
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.http import JsonResponse
-from django.template.backends.django import reraise
+# from django.http import JsonResponse
+
 import random
 import string
 
-def hello(request):
-    name = request.GET.get('name','Гость')
-    greeting = f"<p>Hello, {name}! Welcome to our site.</p>"
 
-    return HttpResponse(greeting)
+def task_1(request):
+    name = request.GET.get('name', 'Aktan')
+    return render(request, 'blog/task_1.html', {'name': name})
 
-
-def sum(request):
-    try:
-        a = float(request.GET['a'])
-        b = float(request.GET['b'])
-    except (KeyError, ValueError):
-        return JsonResponse({'error': 'Both parameters a and b must be valid numbers and are required.'}, status=400)
+# def task_2(request):
+#     try:
+#         a = float(request.GET.get('a', '2'))
+#         b = float(request.GET.get('b', '8'))
+#     except (KeyError, ValueError):
+#         return JsonResponse({'error': 'Both parameters a and b must be valid numbers and are required.'}, status=400)
+#
+#     result = a + b
+#
+#     return render(request , 'blog/task_2.html',dict(a=a, b=b, sum=result))
+def task_2(request):
+    a = int(request.GET.get("a", '2'))
+    b = int(request.GET.get("b", '8'))
 
     result = a + b
+    return render(request, 'blog/task_2.html', {"result": result})
 
-    return JsonResponse({'a': a, 'b': b, 'sum': result})
+def task_3(request):
+    try:
+        number = int(request.GET.get('number', '8'))
+        result = 'even' if number % 2 == 0 else 'odd'
+    except ValueError:
+        number = None
+        result = 'invalid'
+
+    return render(request, 'blog/task_3.html', {'number': number, 'result': result})
 
 
-def check_number(request):
-    number = request.GET.get('number')
 
-    if number is not None and number.isdigit():
-        number = int(number)
 
-        if number % 2 == 0:
-            return HttpResponse(f"{number}--> even numbers")
-        else:
-            return HttpResponse(f"{number}--> odd numbers")
+def task_4(request):
+    text = request.GET.get('text', 'Django rest freymwork')
+    n = request.GET.get('n', '0')
 
+    if not n.isdigit():
+        n = 0
     else:
-        return HttpResponse("Please provide a valid number via the 'number' parameter.")
-
-
-
-
-def filter_words(request):
-    text = request.GET.get('text', '')
-    n = int(request.GET.get('n', 0))
+        n = int(n)
 
     words = text.split()
-
     filtered_words = [word for word in words if len(word) > n]
 
-    return JsonResponse(filtered_words, safe=False)
+    return render(request, 'blog/task_4.html', {'filtered_words': filtered_words})
 
+from django.shortcuts import render
 
-def palindrome(request):
-    word = request.GET.get('word', '')
+def task_5(request):
+    word = request.GET.get('word', 'level')
 
     if word == word[::-1]:
-        return HttpResponse(f'Word {word} is a palindrome')
+        result = f"The word '{word}' is a palindrome!"
     else:
-        return HttpResponse(f'Word {word} is not a palindrome')
+        result = f"The word '{word}' is not a palindrome."
 
-def age_old(request):
-    year_old = request.GET.get('year_old', '')
+    return render(request, 'blog/task_5.html', {'result': result, 'word': word})
+
+def task_6(request):
+    year_old = request.GET.get('year_old', '2007')
 
     if not year_old:
         return HttpResponse("Please indicate the year of birth using the 'year' parameter.")
@@ -70,32 +77,24 @@ def age_old(request):
         return HttpResponse("Invalid year format. Please enter an integer.")
 
     birth_year = int(year_old)
-    current_year = 2025 or 2024
+    current_year = 2025
     age = current_year - birth_year
 
     if age < 0:
         return HttpResponse(f"The year of birth is incorrect.")
 
-    return HttpResponse(f'Your age: {age} years')
+    return render(request, 'blog/task_6.html', {'year_old': year_old})
+
+
+def task_7(request):
+    number = int(request.GET.get('n', '5'))
+    context = [f'{number} x {i} = {number * i}' for i in range(1,11)]
+
+    return render(request, 'blog/task_7.html', {'context':context})
 
 
 
-
-def multiplication(request):
-    param = request.GET.get('n','')
-    if not param:
-        return HttpResponse("Please specify a number using the 'n' parameter.")
-    if not param.isdigit():
-        return HttpResponse("Invalid number format. Please enter an integer.")
-
-    n = int(param)
-    table = [f'{n} x {i} = {n * i}' for i in range(1,11)]
-    response = "<br>".join(table)
-
-    return HttpResponse(response)
-
-
-def find_maximum(request):
+def task_8(request):
     numbers_param = request.GET.get('numbers', '')
     if not numbers_param:
         return HttpResponse("Please provide a list of numbers using the 'numbers' parameter.")
@@ -104,17 +103,14 @@ def find_maximum(request):
         numbers = [int(num.strip()) for num in numbers_param.split(',')]
     except ValueError:
         return HttpResponse("Invalid number format. Please provide a list of numbers separated by commas.")
-
     if not numbers:
         return HttpResponse("The list of numbers is empty. Please provide at least one number.")
-
     maximum_number = max(numbers)
 
-    return HttpResponse(f"The maximum number is: {maximum_number}")
+    return render(request, 'blog/task_8.html', {'maximum_number': maximum_number, 'numbers': numbers_param})
 
-
-def convert_temperature(request):
-    celsius_param = request.GET.get('celsius', '')
+def task_9(request):
+    celsius_param = request.GET.get('celsius', '36')
     if not celsius_param:
         return HttpResponse("Please provide a temperature in Celsius using the 'celsius' parameter.")
 
@@ -125,11 +121,12 @@ def convert_temperature(request):
 
     fahrenheit = (celsius * 9/5) + 32
 
-    return HttpResponse(f"{celsius}°C = {fahrenheit}°F")
+    return render(request, "blog/task_9.html", {'fahrenheit': fahrenheit, 'celsius': celsius_param})
 
 
-def generate_password(request):
-    length_param = request.GET.get('length', '')
+
+def task_10(request):
+    length_param = request.GET.get('length', '5')
     if not length_param:
         return HttpResponse("Please provide the password length using the 'length' parameter.")
 
@@ -143,24 +140,6 @@ def generate_password(request):
     characters = string.ascii_letters + string.digits + string.punctuation
     password = ''.join(random.choices(characters, k=length))
 
-    return HttpResponse(f"Your password: {password}")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    return render(request, 'blog/task_10.html', {'password': password, 'length': length_param})
 
 
