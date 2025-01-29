@@ -1,90 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Меню задач</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            display: flex;
-        }
-        .sidebar {
-            width: 250px;
-            background-color: #333;
-            color: white;
-            padding: 20px;
-            height: 100vh;
-        }
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .sidebar ul li {
-            padding: 10px;
-            border-bottom: 1px solid #555;
-        }
-        .sidebar ul li a {
-            color: white;
-            text-decoration: none;
-            display: block;
-        }
-        .sidebar ul li a:hover {
-            background-color: #555;
-        }
-        .content {
-            flex-grow: 1;
-            padding: 20px;
-        }
+{% extends 'base.html' %}
+{% block title %}
+Первая задача
+{% endblock title %}
 
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-            }
-            .content {
-                margin-left: 0;
-            }
-            .sidebar ul li {
-                text-align: center;
-            }
-            .sidebar ul li a {
-                padding: 15px;
-            }
-        }
-    </style>
-</head>
-<body>
+{% block content %}
+<h2>Первая задача</h2>
+<p>{{ name }}</p>
 
-    <div class="sidebar">
-        <h2>Список задач</h2>
-        <ul>
-            <li><a href="http://127.0.0.1:8000/blog/task-1/" onclick="loadTaskContent('task1')">Задача 1</a></li>
-            <li><a href="http://127.0.0.1:8000/blog/task-2/" onclick="loadTaskContent('task2')">Задача 2</a></li>
-            <li><a href="http://127.0.0.1:8000/blog/task-3/" onclick="loadTaskContent('task3')">Задача 3</a></li>
-            <li><a href="http://127.0.0.1:8000/blog/task-4/" onclick="loadTaskContent('task4')">Задача 4</a></li>
-            <li><a href="http://127.0.0.1:8000/blog/task-5/" onclick="loadTaskContent('task5')">Задача 5</a></li>
-            <li><a href="http://127.0.0.1:8000/blog/task-6/" onclick="loadTaskContent('task6')">Задача 6</a></li>
-            <li><a href="http://127.0.0.1:8000/blog/task-7/" onclick="loadTaskContent('task7')">Задача 7</a></li>
-            <li><a href="http://127.0.0.1:8000/blog/task-8/" onclick="loadTaskContent('task8')">Задача 8</a></li>
-            <li><a href="http://127.0.0.1:8000/blog/task-9/" onclick="loadTaskContent('task9')">Задача 9</a></li>
-            <li><a href="http://127.0.0.1:8000/blog/task-10/" onclick="loadTaskContent('task10')">Задача 10</a></li>
-
-
-        </ul>
-    </div>
-
-    <div class="content">
-        <h2>Решение задач</h2>
-
-        <div id="task-content">
-
-                <h4>{{name}}</h4>
-
-        </div>
-    </div>
-
-</body>
-</html>
+{% endblock content %}
