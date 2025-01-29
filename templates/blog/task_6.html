@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}
+Шестая задача
+{% endblock title %}
+
+{% block content %}
+
+
+<h2>Calculate Age</h2>
+
+
+<form method="get" action="" class="birth-year-form">
+    <label for="year_old" class="form-label">Enter your birth year:</label>
+    <input type="number" id="year_old" name="year_old" class="form-input" placeholder="e.g., 2007" required>
+    <button type="submit" class="form-button">Submit</button>
+</form>
+
+{% endblock content %}

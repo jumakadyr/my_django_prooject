@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}
+Третяя задача
+{% endblock title %}
+
+{% block content %}
+<form method="get" action="">
+    <label for="number">Enter a number:</label>
+    <input type="text" id="number" name="number" placeholder="Enter a number" required>
+    <button type="submit">Check</button>
+</form>
+
+
+{% if number is not None %}
+<p>{{ number }} → {{ result }}</p>
+{% else %}
+<p>Invalid input. Please provide a valid number.</p>
+{% endif %}
+{% endblock content %}

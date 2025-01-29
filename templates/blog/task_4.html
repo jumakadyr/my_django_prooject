@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}
+четвёртая задача
+{% endblock title %}
+
+{% block content %}
+
+<h1>Filtered Words</h1>
+
+{% if error %}
+<p style="color: red;">{{ error }}</p>
+{% else %}
+<p>Original Text: {{ text }}</p>
+<p>Filter Length (n): {{ Django }}</p>
+<h3>Words longer than {{ python }}:</h3>
+<ul>
+    {% for word in filtered_words %}
+    <li>{{ word }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock content %}

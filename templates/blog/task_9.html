@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}
+Девятяя задача
+{% endblock title %}
+
+{% block content %}
+<h2>Convert Celsius to Fahrenheit</h2>
+
+<form method="get">
+    <label for="celsius">Enter temperature in Celsius:</label><br>
+    <input type="text" id="celsius" name="celsius" value="{{ celsius }}" required>
+    <button type="submit">Convert</button>
+</form>
+
+{% if fahrenheit %}
+<h3>Result:</h3>
+<p>{{ celsius }}° Celsius is equal to {{ fahrenheit }}° Fahrenheit.</p>
+{% else %}
+<p>Please provide a valid temperature.</p>
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}
+Пятая задача
+{% endblock title %}
+
+{% block content %}
+
+<h3>Check another word:</h3>
+<form method="get" action="">
+    <label for="word">Enter a word:</label>
+    <input type="text" id="word" name="word" placeholder="Type a word" required>
+    <button type="submit">Check</button>
+</form>
+
+{% endblock content %}

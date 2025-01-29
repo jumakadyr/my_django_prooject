@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}
+Десятая задача
+{% endblock title %}
+
+{% block content %}
+<form method="get">
+    <label for="length">Enter the desired password length:</label><br>
+    <input type="text" id="length" name="length" value="{{ length }}" required>
+    <button type="submit">Generate Password</button>
+</form>
+
+{% if password %}
+<h3>Generated Password:</h3>
+<p>{{ password }}</p>
+{% else %}
+<p>Please provide a valid password length.</p>
+{% endif %}
+{% endblock content %}
+

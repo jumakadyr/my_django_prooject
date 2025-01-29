@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}
+
+Exam 1
+
+{% endblock title %}
+
+{% block content %}
+<form action="{% url 'exam-1' %}" method="post">
+    {% csrf_token %}
+    <label>Start</label>
+    <label>
+        <input type="number" name="start"/>
+    </label><br>
+    <br>
+    <label>Email</label>
+    <label>
+        <input type="number" name="end"/>
+    </label>
+    <button type="submit">Send</button>
+</form>
+<h1>Result = {{ result }}</h1>
+
+
+{% endblock content %}
